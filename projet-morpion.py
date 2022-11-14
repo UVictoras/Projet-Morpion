@@ -12,6 +12,9 @@ class Player():
         self.name = name
         self.sign = sign
 
+    def PlayersPlay(self, x, y):
+        return (x-1, y-1)
+
 ' --- Définition de la classe IA --- '
 
 class IA():

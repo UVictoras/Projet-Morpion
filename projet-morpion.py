@@ -29,11 +29,11 @@ class Morpion(Player, IA):
         self.grid = []
 
     def PrepareGrid(self):
-        for i in range(3):
-            row = []
-            for i in range(3):
-                row.append('-')
-            self.grid.append(row)
+        row1 = ['1 1', '1 2', '1 3']
+        row2 = ['2 1', '2 2', '2 3']
+        row3 = ['3 1', '3 2', '3 3']
+        self.grid.append(row1, row2, row3)
+
 
     def PrintGrid(self):
         for i in range(3):

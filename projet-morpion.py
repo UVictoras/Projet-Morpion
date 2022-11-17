@@ -89,6 +89,7 @@ class Morpion(Player):
             return False
 
 ' --- Commandes pour jouer une partie ---'
+
 def game():
     win = False
     turn = 0

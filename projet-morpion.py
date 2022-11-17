@@ -17,7 +17,7 @@ class Player():
 
 ' --- Définition de la classe IA --- '
 
-class IA():
+class IA(Player):
 
     pass
 

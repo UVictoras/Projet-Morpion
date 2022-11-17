@@ -57,8 +57,8 @@ class Morpion(Player):
             print("Choose another case please, this one is already full.")
 
     def VerifyLine(self):
+        win = False
         for i in range(3):
-            win = False
             if self.grid[i][0] == 'X' and self.grid[i][1] == 'X' and self.grid[i][2] == 'X':
                 win = True
             elif self.grid[i][0] == 'O' and self.grid[i][1] == 'O' and self.grid[i][2] == 'O':
@@ -66,8 +66,8 @@ class Morpion(Player):
         return win
 
     def VerifyColumn(self):
+        win = False
         for i in range(3):
-            win = False
             if self.grid[0][i] == 'X' and self.grid[1][i] == 'X' and self.grid[2][i] == 'X':
                 win = True
             elif self.grid[0][i] == 'O' and self.grid[1][i] == 'O' and self.grid[2][i] == 'O':
@@ -97,25 +97,28 @@ def game():
     Player2 = Player('Benjamin', 'O')
     GameTicTacToe = Morpion()
     GameTicTacToe.PrepareGrid()
-    while turn < 9:
+    while turn < 9 and GameTicTacToe.VerifyWin() != True:
         GameTicTacToe.PrintGrid()
         if turn%2 == 0:
             Player1ChoiceX = int(input("Which line do you choose, {} : ".format(Player1.name)))
             Player1ChoiceY = int(input("Which column do you choose, {} : ".format(Player1.name)))
             GameTicTacToe.UpdateGrid(Player1ChoiceX,Player1ChoiceY, Player1)
             turn += 1
-            win = GameTicTacToe.VerifyWin()
-            if win:
-                return Player1.name+'won the game !'
+            if GameTicTacToe.VerifyWin():
+                print("{} won the game ! ".format(Player1.name))
+                GameTicTacToe.PrintGrid()
+                return 
 
         else:
             Player2ChoiceX = int(input("Which line do you choose, {} : ".format(Player2.name)))
             Player2ChoiceY = int(input("Which column do you choose, {} : ".format(Player2.name)))
             GameTicTacToe.UpdateGrid(Player2ChoiceX, Player2ChoiceY, Player2)
             turn += 1
-            win = GameTicTacToe.VerifyWin()
-            if win:
-                return Player2+'won the game !'
+            if GameTicTacToe.VerifyWin():
+                print("{} won the game ! ".format(Player2.name))  
+                GameTicTacToe.PrintGrid() 
+                return      
+        
         print("")
     GameTicTacToe.PrintGrid()
     print("It's a draw")

@@ -109,39 +109,43 @@ On crée une classe Morpion qui prend en 'paramètre' la classe Joueur, pour en 
 
 ' --- Commandes pour jouer une partie ---'
 
-def game():
-    win = False
-    turn = 0
-    Player1 = Player('Victor', 'X')
-    Player2 = Player('Benjamin', 'O')
-    GameTicTacToe = Morpion()
-    GameTicTacToe.PrepareGrid()
-    while turn < 9 and GameTicTacToe.VerifyWin() != True:
-        GameTicTacToe.PrintGrid()
-        if turn%2 == 0:
-            Player1ChoiceX = int(input("Which line do you choose, {} : ".format(Player1.name)))
-            Player1ChoiceY = int(input("Which column do you choose, {} : ".format(Player1.name)))
-            GameTicTacToe.UpdateGrid(Player1ChoiceX,Player1ChoiceY, Player1)
-            turn += 1
-            if GameTicTacToe.VerifyWin():
-                print("{} won the game ! ".format(Player1.name))
-                GameTicTacToe.PrintGrid()
-                return 
+On crée la fonction game, qui fera le déroulement de la partie, ne prennant aucun argument
+    on assigne à la variable turn la valeur 0
+    on assigne à la variable Player1 l'objet de classe Player avec comme nom Victor et comme signe X
+    on assigne à la variable Player2 l'objet de classe Player avec comme nom Benjamin et comme signe O
+    on assigne à la variable GameTicTacToe, l'objet de classe Morpion
+    on assigne à la variable GameTicTacToe, le résultat de l'appel de la méthode PrepareGrid
+    tant que la valeur de la variable turn est inférieur à 9 ou que le retour de l'appel de la méthode VerifyWin est différent de True :
+        alors :
+        On appelle la méthode PrintGrid pour l'objet GameTicTacToe
+        si le reste de la division de tour par 2 est égal à 0 :
+            alors :
+            on assigne à la variable Player1ChoiceX l'entier correspondant au retour de l'appel de la fonction input
+            on assigne à la variable Player1ChoiceY l'entier correspondant au retour de l'appel de la fonction input
+            On appel la méthode UpdateGrid pour l'objet GameTicTacToe avec en argument Player1ChoiceX, Player1ChoiceY et Player1
+            on ajoute 1 à la variable turn
+            si le retour de l'appel de la méthode VerifyWin pour l'objet GameTicTacToe est égal à True :
+                alors :
+                on affiche un message de victoire
+                On appelle la fonction PrintGrid pour l'objet GameTicTacToe
+                on renvoie un espace vide pour sortir de la fonction 
 
-        else:
-            Player2ChoiceX = int(input("Which line do you choose, {} : ".format(Player2.name)))
-            Player2ChoiceY = int(input("Which column do you choose, {} : ".format(Player2.name)))
-            GameTicTacToe.UpdateGrid(Player2ChoiceX, Player2ChoiceY, Player2)
-            turn += 1
-            if GameTicTacToe.VerifyWin():
-                print("{} won the game ! ".format(Player2.name))  
-                GameTicTacToe.PrintGrid() 
-                return      
+        sinon :
+            alors :
+            on assigne à la variable Player2ChoiceX l'entier correspondant au retour de l'appel de la fonction input
+            on assigne à la variable Player2ChoiceY l'entier correspondant au retour de l'appel de la fonction input
+            On appel la méthode UpdateGrid pour l'objet GameTicTacToe avec en argument Player2ChoiceX, Player2ChoiceY et Player2
+            on ajoute 1 à la variable turn
+            si le retour de l'appel de la méthode VerifyWin pour l'objet GameTicTacToe est égal à True :
+                alors :
+                on affiche un message de victoire
+                On appelle la fonction PrintGrid pour l'objet GameTicTacToe
+                on renvoie un espace vide pour sortir de la fonction  
         
-        print("")
-    GameTicTacToe.PrintGrid()
-    print("It's a draw")
+        On affiche un message vide
+    On appelle la fonction PrintGrid pour l'objet GameTicTacToe
+    On affiche un message d'égalité
 
-game()
+On appelle la fonction game
 
 ''' FIN '''

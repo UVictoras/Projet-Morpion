@@ -44,46 +44,68 @@ On crée une classe Morpion qui prend en 'paramètre' la classe Joueur, pour en 
             alors :
             on renvoie True
 
-    def UpdateGrid(self, x, y, Player):
-        if self.VerifyEmptyCase(x, y):
-            if Player.sign == 'X':
-                self.grid[x-1][y-1] = 'X'
+    On crée une méthode UpdateGrid, qui mettra jour à jour l'élément selectionné par le joueur dans la grille de l'objet désigné, prennant en argument x, y (coordonnées) 
+    et Player (un joueur)
+        Si la case sélectionné par le joueur dans la grille est libre :
+            alors :
+            si le signe du joueur Player est X :
+                alors :
+                on assigne X à l'élément y-1 de l'élément x-1 de la grille de l'objet sélectionné 
+            sinon :
+                alors :
+                on assigne O à l'élément y-1 de l'élément x-1 de la grille de l'objet sélectionné 
             else:
-                self.grid[x-1][y-1] = 'O'
-        else:
-            print("Choose another case please, this one is already full.")
+        sinon : 
+            alors : 
+            Afficher le message : "Choose another case please, this one is already full."
 
-    def VerifyLine(self):
-        win = False
-        for i in range(3):
-            if self.grid[i][0] == 'X' and self.grid[i][1] == 'X' and self.grid[i][2] == 'X':
-                win = True
-            elif self.grid[i][0] == 'O' and self.grid[i][1] == 'O' and self.grid[i][2] == 'O':
-                win = True
-        return win
+    On crée une méthode VerifyLine, qui verifie si une des lignes de la grille est une victoire, ne prennant aucun argument
+        on assigne à la variable win False
+        pour i allant de 0 à 3 :
+            faire :
+            si l'élément d'index 0 de l'élément i de la grille est égal à X et l'élément d'index 1 de l'élément i de la grille est égal à X 
+            et l'élément d'index 2 de l'élément i de la grille est égal à X :
+                alors :
+                on assigne à la variable win True
+            sinon si l'élément d'index 0 de l'élément i de la grille est égal à O et l'élément d'index 1 de l'élément i de la grille est égal à O
+            et l'élément d'index 2 de l'élément i de la grille est égal à O :
+                alors : 
+                on assigne à la variable win True
+        on renvoie la variable win
 
-    def VerifyColumn(self):
-        win = False
-        for i in range(3):
-            if self.grid[0][i] == 'X' and self.grid[1][i] == 'X' and self.grid[2][i] == 'X':
-                win = True
-            elif self.grid[0][i] == 'O' and self.grid[1][i] == 'O' and self.grid[2][i] == 'O':
-                win = True
-        return win
+    On crée une méthode VerifyColumn, qui verifie si une des colonnes de la grille est une victoire, ne prennant aucun argument
+        on assigne à la variable win False
+        pour i allant de 0 à 3 :
+            faire :
+            si l'élément d'index i de l'élément 0 de la grille est égal à X et l'élément d'index i de l'élément 1 de la grille est égal à X 
+            et l'élément d'index i de l'élément 2 de la grille est égal à X :
+                alors :
+                on assigne à la variable win True
+            sinon si l'élément d'index i de l'élément 0 de la grille est égal à O et l'élément d'index i de l'élément 1 de la grille est égal à O
+            et l'élément d'index i de l'élément 2 de la grille est égal à O :
+                alors : 
+                on assigne à la variable win True
+        on renvoie la variable win
 
-    def VerifyDiagonal(self):
-        win = False
-        if (self.grid[0][0] == 'X' and self.grid[1][1] == 'X' and self.grid[2][2] == 'X') or (self.grid[0][2] == 'X' and self.grid[1][1] == 'X' and self.grid[2][0] == 'X'):
-            win = True
-        elif (self.grid[0][0] == 'O' and self.grid[1][1] == 'O' and self.grid[2][2] == 'O') or (self.grid[0][2] == 'O' and self.grid[1][1] == 'O' and self.grid[2][0] == 'O'):
-            win = True
-        return win
+    On crée une méthode VerifyDiagonal, qui verifie si une des diagonales de la grille est une victoire, ne prennant aucun argument
+        on assigne à la variable win False
+        si l'élément 0 de l'élément 0 de la grile est égal à X et l'élément 1 de l'élément 1 de la grille est égal à X et l'élément 2 de l'élément 2 de la grille est égal à X 
+        ou l'élément 2 de l'élément 0 de la grile est égal à X et l'élément 1 de l'élément 1 de la grille est égal à X et l'élément 0 de l'élément 2 de la grille est égal à X :
+            alors :
+            on assigne à la variable win True
+        si l'élément 0 de l'élément 0 de la grile est égal à O et l'élément 1 de l'élément 1 de la grille est égal à O et l'élément 2 de l'élément 2 de la grille est égal à O 
+        ou l'élément 2 de l'élément 0 de la grile est égal à O et l'élément 1 de l'élément 1 de la grille est égal à O et l'élément 0 de l'élément 2 de la grille est égal à O :
+            alors :
+            on assigne à la variable win True
+        on renvoie la variable win
         
-    def VerifyWin(self):
-        if self.VerifyLine() == True or self.VerifyColumn() == True or self.VerifyDiagonal() == True:
-            return True
-        else:
-            return False
+    On crée une méthode VerifyWin, qui verifie si quelqu'un a gagné, ne prennant aucun argument
+        si l'appel de la méthode VerifyLine renvoie True ou l'appel de la fonction VerifyColumn renvoie True ou l'appel de la fonction VerifyDiagonal renvoie True :
+            alors :
+            on renvoie True
+        sinon :
+            alors :
+            on renvoie False
 
 ' --- Commandes pour jouer une partie ---'
 

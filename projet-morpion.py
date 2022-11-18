@@ -91,7 +91,6 @@ class Morpion(Player):
 ' --- Commandes pour jouer une partie ---'
 
 def game():
-    win = False
     turn = 0
     Player1 = Player('Victor', 'X')
     Player2 = Player('Benjamin', 'O')

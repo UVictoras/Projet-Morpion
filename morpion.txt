@@ -1,0 +1,125 @@
+''' DEBUT '''
+
+' --- Importation du ou des modules --- '
+
+On admet qu'une fonction 'input' existe et qu'elle récupère la réponse à ce qu'on demande à l'utilisateur dans le terminal de commande.
+
+' --- Définition de la classe Player --- '
+
+On crée une classe Player qui récupèrera l'action du joueur, son nom et son signe.
+
+    On crée une méthode __init__ qui initialise les objets de classe Player, prennant pour argument son nom et son signe.
+        On assigne à la variable nom de cet objet le nom donné en argument
+        On assigne à la variable signe de cet objet le signe donné en argument
+
+    On crée une méthode PlayersPlay, prennant en argument x et y, les coordonnées du tableau correspondant au choix du joueur
+        On retourne x et y auxquels on soustrait 1 pour avoir des coordonnées correspondantes à des index de listes.
+
+' --- Définition de la classe Morpion --- '
+
+On crée une classe Morpion qui prend en 'paramètre' la classe Joueur, pour en utiliser des éléments plus tard.
+
+    On crée une méthode __init__ qui initialise les objets de classe Morpion, ne prennant aucun argument
+        On assigne à la grille de cette objet une liste vide
+
+    On crée une méthode PrepareGrid qui initialise la grille du jeu, ne prennant aucun argument
+        On assigne à la variable row1 une liste de longueur 3, contenant des '-' à chaque index.
+        On assigne à la variable row2 une liste de longueur 3, contenant des '-' à chaque index.
+        On assigne à la variable row3 une liste de longueur 3, contenant des '-' à chaque index.
+        On ajoute à la grille de cette objet la variable row1
+        On ajoute à la grille de cette objet la variable row2 
+        On ajoute à la grille de cette objet la variable row3
+
+
+    On crée une méthode PrintGrid, qui affiche la grille de l'objet, ne prennant aucun argument
+        Pour i allant de 0 à 3 :
+            faire :
+            Afficher l'élément i de la grille de l'objet
+    
+    On crée une méthode VerifyEmptyCase, qui verifiera si la case aux coordonnées x et y (x et y les arguments de la méthode) est libre ou non
+        si l'élément y-1 de l'élément x-1 de la grille de l'objet est égal à X ou O :
+            alors :
+            on renvoie False
+        sinon :
+            alors :
+            on renvoie True
+
+    def UpdateGrid(self, x, y, Player):
+        if self.VerifyEmptyCase(x, y):
+            if Player.sign == 'X':
+                self.grid[x-1][y-1] = 'X'
+            else:
+                self.grid[x-1][y-1] = 'O'
+        else:
+            print("Choose another case please, this one is already full.")
+
+    def VerifyLine(self):
+        win = False
+        for i in range(3):
+            if self.grid[i][0] == 'X' and self.grid[i][1] == 'X' and self.grid[i][2] == 'X':
+                win = True
+            elif self.grid[i][0] == 'O' and self.grid[i][1] == 'O' and self.grid[i][2] == 'O':
+                win = True
+        return win
+
+    def VerifyColumn(self):
+        win = False
+        for i in range(3):
+            if self.grid[0][i] == 'X' and self.grid[1][i] == 'X' and self.grid[2][i] == 'X':
+                win = True
+            elif self.grid[0][i] == 'O' and self.grid[1][i] == 'O' and self.grid[2][i] == 'O':
+                win = True
+        return win
+
+    def VerifyDiagonal(self):
+        win = False
+        if (self.grid[0][0] == 'X' and self.grid[1][1] == 'X' and self.grid[2][2] == 'X') or (self.grid[0][2] == 'X' and self.grid[1][1] == 'X' and self.grid[2][0] == 'X'):
+            win = True
+        elif (self.grid[0][0] == 'O' and self.grid[1][1] == 'O' and self.grid[2][2] == 'O') or (self.grid[0][2] == 'O' and self.grid[1][1] == 'O' and self.grid[2][0] == 'O'):
+            win = True
+        return win
+        
+    def VerifyWin(self):
+        if self.VerifyLine() == True or self.VerifyColumn() == True or self.VerifyDiagonal() == True:
+            return True
+        else:
+            return False
+
+' --- Commandes pour jouer une partie ---'
+
+def game():
+    win = False
+    turn = 0
+    Player1 = Player('Victor', 'X')
+    Player2 = Player('Benjamin', 'O')
+    GameTicTacToe = Morpion()
+    GameTicTacToe.PrepareGrid()
+    while turn < 9 and GameTicTacToe.VerifyWin() != True:
+        GameTicTacToe.PrintGrid()
+        if turn%2 == 0:
+            Player1ChoiceX = int(input("Which line do you choose, {} : ".format(Player1.name)))
+            Player1ChoiceY = int(input("Which column do you choose, {} : ".format(Player1.name)))
+            GameTicTacToe.UpdateGrid(Player1ChoiceX,Player1ChoiceY, Player1)
+            turn += 1
+            if GameTicTacToe.VerifyWin():
+                print("{} won the game ! ".format(Player1.name))
+                GameTicTacToe.PrintGrid()
+                return 
+
+        else:
+            Player2ChoiceX = int(input("Which line do you choose, {} : ".format(Player2.name)))
+            Player2ChoiceY = int(input("Which column do you choose, {} : ".format(Player2.name)))
+            GameTicTacToe.UpdateGrid(Player2ChoiceX, Player2ChoiceY, Player2)
+            turn += 1
+            if GameTicTacToe.VerifyWin():
+                print("{} won the game ! ".format(Player2.name))  
+                GameTicTacToe.PrintGrid() 
+                return      
+        
+        print("")
+    GameTicTacToe.PrintGrid()
+    print("It's a draw")
+
+game()
+
+''' FIN '''

@@ -3,6 +3,7 @@
 ' --- Importation du ou des modules --- '
 
 import random as r
+import itertools
 
 ' --- Définition de la classe Player --- '
 
@@ -60,11 +61,88 @@ class AI(Player, Morpion):
 
         elif turn > 1:
 
-            pass
+            for i in range(len(AIVar)):
+
+                (x1, y1, x2, y2, x3, y3) = (AIVar[i])
+
+                if Morpion.grid[x1][y1] == 'O' and Morpion.grid[x2][y2] == 'O':
+
+                    if Morpion.VerifyEmptyCase(x3, y3):
+
+                        Morpion.UpdateGrid(x3, y3, self)
+
+            for i in range(len(AIVar)):
+
+                (x1, y1, x2, y2, x3, y3) = (AIVar[i])
+
+                if Morpion.grid[x1][y1] == 'X' and Morpion.grid[x2][y2] == 'X':
+
+                    if Morpion.VerifyEmptyCase(x3, y3):
+
+                        Morpion.UpdateGrid(x3, y3, self)
+
+            if turn == 2:
+
+                if Morpion.grid[2][3] == 'X' and (Morpion.grid[1][2] == 'X' or Morpion.grid[1][1] == 'X'):
+
+                    Morpion.UpdateGrid(1, 3, self)
+
+                elif Morpion.grid[2][3] == 'X' and Morpion.grid[3][2] == 'X':
+
+                    Morpion.UpdateGrid(3, 3, self)
+
+                elif Morpion.grid[1][2] =='X' and Morpion.grid[3][1] == 'X':
+
+                    Morpion.UpdateGrid(1, 1, self)
+
+                elif Morpion.grid[3][1] == 'X' and Morpion.grid[2][3] == 'X':
+
+                    Morpion.UpdateGrid(3, 3, self)
+
+                elif Morpion.grid[2][2] == 'O' and Morpion.VerifyEmptyCase(2, 1):
+
+                    Morpion.UpdateGrid(2, 1, self)
+
+            for i in range(len(AIVar)):
+
+                (x1, y1, x2, y2, x3, y3) = (AIVar[i])
+
+                if Morpion.grid[x1][y1] == 'X' and ((x2, y2) in [(1,1),(1,3),(3,1),(3,3)]) and Morpion.VerifyEmptyCase(x2, y2):
+
+                    Morpion.UpdateGrid(x2, y2, self)
+
+            for i in range(len(AiVar)):
+
+                (x1, y1, x2, y2, x3, y3) = (AIVar[i])
+
+                if Morpion.grid[x1][y1] == 'O':
+
+                    if Morpion.VerifyEmptyCase(x2, y2):
+
+                        Morpion.UpdateGrid(x2, y2, self)
+
+                else:
+
+                    while True:
+
+                        x = r.randint(1,3)
+                        y = r.randint(1,3)
+
+                        if Morpion.UpdateGrid(x, y, self):
+
+                            Morpion.UpdateGrid(x, y, self)
 
     def CompAI(self):
 
+        global AIVar
+        WinMoves = [((1,1),(1,2),(1,3)),((2,1),(2,2),(2,3)),((3,1),(3,2),(3,3)),((1,1),(2,1),(3,1)),((1,2),(2,2),(3,2)),((1,3),(2,3),(3,3)),((1,3),(2,2),(3,1)),((1,1),(2,2),(3,3))]
+        PossibleWins = []
+        
+        for i in range(len(winMoves)):
+            
+            PossibleWins.append(list(itertools.permutation(WinMoves[i])))
 
+        AIVar = most(itertools.chain.from_iterable(PossibleWins))
 
 ' --- Définition de la classe Morpion --- '
 

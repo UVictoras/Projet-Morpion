@@ -187,25 +187,25 @@ class AI():
 
                         game.UpdateGrid(x3, y3, self)
 
-            if turn == 2:
+            if turn == 3:
 
-                if game.grid[2][3] == 'X' and (game.grid[1][2] == 'X' or game.grid[1][1] == 'X'):
+                if game.grid[1][2] == 'X' and (game.grid[0][1] == 'X' or game.grid[0][0] == 'X'):
 
                     game.UpdateGrid(1, 3, self)
 
-                elif game.grid[2][3] == 'X' and game.grid[3][2] == 'X':
+                elif game.grid[1][2] == 'X' and game.grid[2][1] == 'X':
 
                     game.UpdateGrid(3, 3, self)
 
-                elif game.grid[1][2] =='X' and game.grid[3][1] == 'X':
+                elif game.grid[0][1] =='X' and game.grid[2][0] == 'X':
 
                     game.UpdateGrid(1, 1, self)
 
-                elif game.grid[3][1] == 'X' and game.grid[2][3] == 'X':
+                elif game.grid[2][0] == 'X' and game.grid[1][2] == 'X':
 
                     game.UpdateGrid(3, 3, self)
 
-                elif game.grid[2][2] == 'O' and game.VerifyEmptyCase(2, 1):
+                elif game.grid[1][1] == 'O' and game.VerifyEmptyCase(2, 1):
 
                     game.UpdateGrid(2, 1, self)
 
@@ -234,7 +234,7 @@ class AI():
                         x = r.randint(1,3)
                         y = r.randint(1,3)
 
-                        if game.UpdateGrid(x, y, self):
+                        if game.VerifyEmptyCase(x, y):
 
                             game.UpdateGrid(x, y, self)
 

@@ -126,7 +126,7 @@ class Morpion(Player):
 
 ' --- Définition de la classe IA --- '
 
-class AI(Player, Morpion):
+class AI():
 
     def __init__(self, sign):
         
@@ -153,13 +153,13 @@ class AI(Player, Morpion):
             
             Morpion.UpdateGrid(3, 3, self)
 
-    def AIMove(self, turn):
+    def AIMove(self, turn, game):
 
         if turn == 1:
             
-            if Morpion.VerifyEmptyCase(2, 2):
+            if game.VerifyEmptyCase(2, 2):
                 
-                Morpion.UpdateGrid(2, 2, self)
+                game.UpdateGrid(2, 2, self)
 
             else:
                 
@@ -169,63 +169,63 @@ class AI(Player, Morpion):
 
             for i in range(len(AIVar)):
 
-                (x1, y1, x2, y2, x3, y3) = (AIVar[i])
+                ((x1, y1), (x2, y2), (x3, y3)) = (AIVar[i])
 
-                if Morpion.grid[x1][y1] == 'O' and Morpion.grid[x2][y2] == 'O':
+                if game.grid[x1 - 1][y1 - 1] == 'O' and game.grid[x2 - 1][y2 - 1] == 'O':
 
-                    if Morpion.VerifyEmptyCase(x3, y3):
+                    if game.VerifyEmptyCase(x3, y3):
 
-                        Morpion.UpdateGrid(x3, y3, self)
+                        game.UpdateGrid(x3, y3, self)
 
             for i in range(len(AIVar)):
 
-                (x1, y1, x2, y2, x3, y3) = (AIVar[i])
+                ((x1, y1), (x2, y2), (x3, y3)) = (AIVar[i])
 
-                if Morpion.grid[x1][y1] == 'X' and Morpion.grid[x2][y2] == 'X':
+                if game.grid[x1 - 1][y1 - 1] == 'X' and game.grid[x2 - 1][y2 - 1] == 'X':
 
-                    if Morpion.VerifyEmptyCase(x3, y3):
+                    if game.VerifyEmptyCase(x3, y3):
 
-                        Morpion.UpdateGrid(x3, y3, self)
+                        game.UpdateGrid(x3, y3, self)
 
             if turn == 2:
 
-                if Morpion.grid[2][3] == 'X' and (Morpion.grid[1][2] == 'X' or Morpion.grid[1][1] == 'X'):
+                if game.grid[2][3] == 'X' and (game.grid[1][2] == 'X' or game.grid[1][1] == 'X'):
 
-                    Morpion.UpdateGrid(1, 3, self)
+                    game.UpdateGrid(1, 3, self)
 
-                elif Morpion.grid[2][3] == 'X' and Morpion.grid[3][2] == 'X':
+                elif game.grid[2][3] == 'X' and game.grid[3][2] == 'X':
 
-                    Morpion.UpdateGrid(3, 3, self)
+                    game.UpdateGrid(3, 3, self)
 
-                elif Morpion.grid[1][2] =='X' and Morpion.grid[3][1] == 'X':
+                elif game.grid[1][2] =='X' and game.grid[3][1] == 'X':
 
-                    Morpion.UpdateGrid(1, 1, self)
+                    game.UpdateGrid(1, 1, self)
 
-                elif Morpion.grid[3][1] == 'X' and Morpion.grid[2][3] == 'X':
+                elif game.grid[3][1] == 'X' and game.grid[2][3] == 'X':
 
-                    Morpion.UpdateGrid(3, 3, self)
+                    game.UpdateGrid(3, 3, self)
 
-                elif Morpion.grid[2][2] == 'O' and Morpion.VerifyEmptyCase(2, 1):
+                elif game.grid[2][2] == 'O' and game.VerifyEmptyCase(2, 1):
 
-                    Morpion.UpdateGrid(2, 1, self)
+                    game.UpdateGrid(2, 1, self)
 
             for i in range(len(AIVar)):
 
-                (x1, y1, x2, y2, x3, y3) = (AIVar[i])
+                ((x1, y1), (x2, y2), (x3, y3)) = (AIVar[i])
 
-                if Morpion.grid[x1][y1] == 'X' and ((x2, y2) in [(1,1),(1,3),(3,1),(3,3)]) and Morpion.VerifyEmptyCase(x2, y2):
+                if game.grid[x1 - 1][y1 - 1] == 'X' and ((x2, y2) in [(1,1),(1,3),(3,1),(3,3)]) and game.VerifyEmptyCase(x2, y2):
 
-                    Morpion.UpdateGrid(x2, y2, self)
+                    game.UpdateGrid(x2, y2, self)
 
-            for i in range(len(AiVar)):
+            for i in range(len(AIVar)):
 
-                (x1, y1, x2, y2, x3, y3) = (AIVar[i])
+                ((x1, y1), (x2, y2), (x3, y3)) = (AIVar[i])
 
-                if Morpion.grid[x1][y1] == 'O':
+                if game.grid[x1 - 1][y1 - 1] == 'O':
 
-                    if Morpion.VerifyEmptyCase(x2, y2):
+                    if game.VerifyEmptyCase(x2, y2):
 
-                        Morpion.UpdateGrid(x2, y2, self)
+                        game.UpdateGrid(x2, y2, self)
 
                 else:
 
@@ -234,9 +234,9 @@ class AI(Player, Morpion):
                         x = r.randint(1,3)
                         y = r.randint(1,3)
 
-                        if Morpion.UpdateGrid(x, y, self):
+                        if game.UpdateGrid(x, y, self):
 
-                            Morpion.UpdateGrid(x, y, self)
+                            game.UpdateGrid(x, y, self)
 
     def CompAI(self):
 
@@ -244,11 +244,11 @@ class AI(Player, Morpion):
         WinMoves = [((1,1),(1,2),(1,3)),((2,1),(2,2),(2,3)),((3,1),(3,2),(3,3)),((1,1),(2,1),(3,1)),((1,2),(2,2),(3,2)),((1,3),(2,3),(3,3)),((1,3),(2,2),(3,1)),((1,1),(2,2),(3,3))]
         PossibleWins = []
         
-        for i in range(len(winMoves)):
+        for i in range(len(WinMoves)):
             
-            PossibleWins.append(list(itertools.permutation(WinMoves[i])))
+            PossibleWins.append(list(itertools.permutations(WinMoves[i])))
 
-        AIVar = most(itertools.chain.from_iterable(PossibleWins))
+        AIVar = list(itertools.chain.from_iterable(PossibleWins))
 
 ' --- Commandes pour jouer une partie ---'
 
@@ -300,7 +300,7 @@ def GameWithAI():
     
     turn = 0
     Player1 = Player('Victor', 'X')
-    Player2 = AI('Benjamin', 'O')
+    Player2 = AI('O')
     GameTicTacToe = Morpion()
     GameTicTacToe.PrepareGrid()
     Player2.CompAI()
@@ -323,7 +323,7 @@ def GameWithAI():
 
         else:
             
-            Player2.AIMove(turn)
+            Player2.AIMove(turn, GameTicTacToe)
             turn += 1
             
             if GameTicTacToe.VerifyWin():

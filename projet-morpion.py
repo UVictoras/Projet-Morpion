@@ -133,25 +133,25 @@ class AI():
         self.name = 'AI'
         self.sign = sign
 
-    def AIPlayCorner(self):
+    def AIPlayCorner(self, game):
         
         ChosenCorner = r.randint(1,4)
         
         if ChosenCorner == 1:
            
-            Morpion.UpdateGrid(1, 1, self)
+            game.UpdateGrid(1, 1, self)
         
         elif ChosenCorner == 2:
             
-            Morpion.UpdateGrid(1, 3, self)
+            game.UpdateGrid(1, 3, self)
         
         elif ChosenCorner == 3:
             
-            Morpion.UpdateGrid(3, 1, self)
+            game.UpdateGrid(3, 1, self)
         
         elif ChosenCorner == 4:
             
-            Morpion.UpdateGrid(3, 3, self)
+            game.UpdateGrid(3, 3, self)
 
     def AIMove(self, turn, game):
 
@@ -163,7 +163,7 @@ class AI():
 
             else:
                 
-                self.AIPlayCorner()
+                self.AIPlayCorner(game)
 
         elif turn > 1:
 

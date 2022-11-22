@@ -133,6 +133,9 @@ class AI():
         self.name = 'AI'
         self.sign = sign
 
+
+
+'''
     def AIPlayCorner(self, game):
         
         ChosenCorner = r.randint(1,4)
@@ -188,6 +191,8 @@ class AI():
                         game.UpdateGrid(x3, y3, self)
 
             if turn == 3:
+
+                print("tour 3 bot")
 
                 if game.grid[1][2] == 'X' and (game.grid[0][1] == 'X' or game.grid[0][0] == 'X'):
 
@@ -249,6 +254,8 @@ class AI():
             PossibleWins.append(list(itertools.permutations(WinMoves[i])))
 
         AIVar = list(itertools.chain.from_iterable(PossibleWins))
+
+'''
 
 ' --- Commandes pour jouer une partie ---'
 

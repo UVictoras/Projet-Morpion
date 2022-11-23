@@ -118,17 +118,17 @@ class Morpion(Player):
 
         for i in range(3):
             
-            if self.grid[i][0] == 'O' and self.grid[i][1] == 'O' and self.grid[i][2] == 'O':
+            if self.grid[i][0] == Player.sign and self.grid[i][1] == Player.sign and self.grid[i][2] == Player.sign:
                 
                 return True
 
         for i in range(3):
             
-            if self.grid[0][i] == 'O' and self.grid[1][i] == 'O' and self.grid[2][i] == 'O':
+            if self.grid[0][i] == Player.sign and self.grid[1][i] == Player.sign and self.grid[2][i] == Player.sign:
                 
                 return True
 
-        if (self.grid[0][0] == 'O' and self.grid[1][1] == 'O' and self.grid[2][2] == 'O') or (self.grid[0][2] == 'X' and self.grid[1][1] == 'X' and self.grid[2][0] == 'X'):
+        if (self.grid[0][0] == Player.sign and self.grid[1][1] == Player.sign and self.grid[2][2] == Player.sign) or (self.grid[0][2] == Player.sign and self.grid[1][1] == Player.sign and self.grid[2][0] == Player.sign):
             
             return True
 
@@ -188,7 +188,7 @@ class AI():
                     if game.VerifyEmptyCase:
 
                         game.grid[i][j] == self.sign
-                        score = self.minimax(game.grid, 0, False, Player, turn)
+                        score = self.minimax(game, 0, False, Player, turn)
                         game.grid[i][j] == '-'
                         if score > BestScore:
                             BestScore = score
@@ -205,7 +205,7 @@ class AI():
                     if game.VerifyEmptyCase:
 
                         game.grid[i][j] == self.sign
-                        score = self.minimax(game.grid, depth + 1, True, Player, turn)
+                        score = self.minimax(game, 0, True, Player, turn)
                         game.grid[i][j] == '-'
                         if score < BestScore:
                             BestScore = score
@@ -225,7 +225,7 @@ class AI():
                     if game.VerifyEmptyCase:
 
                         game.grid[i][j] == self.sign
-                        score = self.minimax(game.grid, 0, False, Player, turn)
+                        score = self.minimax(game, 0, False, Player, turn)
                         game.grid[i][j] == '-'
                         if score > BestScore:
                             BestScore = score

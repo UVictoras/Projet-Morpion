@@ -195,7 +195,7 @@ class AI():
             
             return BestScore
         
-        else:
+        elif not IsMaximizing:
 
             BestScore = 100
 
@@ -210,8 +210,6 @@ class AI():
                         game.grid[i][j] == '-'
                         if score < BestScore:
                             BestScore = score
-                            BestMoveX = i
-                            BestMoveY = j
 
             return BestScore
   
@@ -230,7 +228,7 @@ class AI():
                         game.UpdateGrid(i, j, self)
                         score = self.minimax(game, 0, False, Player, turn)
                         game.grid[i][j] == '-'
-                        if score > BestScore:
+                        if score < BestScore:
                             BestScore = score
                             BestMoveX = i
                             BestMoveY = j

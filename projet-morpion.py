@@ -196,7 +196,7 @@ class AI():
         
         else:
 
-            BestScore = -1000
+            BestScore = 800
 
             for i in range(3):
                 
@@ -204,13 +204,15 @@ class AI():
 
                     if game.VerifyEmptyCase:
 
-                        game.grid[i][j] == self.sign
-                        score = self.minimax(game, 0, True, Player, turn)
+                        game.grid[i][j] == Player.sign
+                        score = self.minimax(game, Depth + 1, True, Player, turn)
                         game.grid[i][j] == '-'
                         if score < BestScore:
                             BestScore = score
                             BestMoveX = i
                             BestMoveY = j
+
+            return BestScore
   
     def AIMove(self, game, Player, turn):
 

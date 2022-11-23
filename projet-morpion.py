@@ -192,6 +192,7 @@ class AI():
                         game.grid[i][j] == '-'
                         if score > BestScore:
                             BestScore = score
+            
             return BestScore
         
         else:

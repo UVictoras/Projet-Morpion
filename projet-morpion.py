@@ -113,7 +113,29 @@ class Morpion(Player):
             win = True
         
         return win
-        
+    
+    def CheckSignWin(self, Player):
+
+        for i in range(3):
+            
+            if self.grid[i][0] == 'O' and self.grid[i][1] == 'O' and self.grid[i][2] == 'O':
+                
+                return True
+
+        for i in range(3):
+            
+            if self.grid[0][i] == 'O' and self.grid[1][i] == 'O' and self.grid[2][i] == 'O':
+                
+                return True
+
+        if (self.grid[0][0] == 'O' and self.grid[1][1] == 'O' and self.grid[2][2] == 'O') or (self.grid[0][2] == 'X' and self.grid[1][1] == 'X' and self.grid[2][0] == 'X'):
+            
+            return True
+
+        else:
+
+            return False
+
     def VerifyWin(self):
         
         if self.VerifyLine() == True or self.VerifyColumn() == True or self.VerifyDiagonal() == True:
@@ -124,6 +146,14 @@ class Morpion(Player):
             
             return False
 
+    def CheckDraw(self, turn):
+
+        if turn == 9 and not self.VerifyWin():
+
+            return True
+
+        else: return False
+
 ' --- Définition de la classe IA --- '
 
 class AI():
@@ -132,8 +162,78 @@ class AI():
         
         self.name = 'AI'
         self.sign = sign
+    
+    def minimax(self, game, Depth, IsMaximizing, Player, turn):
+        
+        if game.CheckSignWin(self):
 
+            return 100
 
+        elif game.CheckSignWin(Player):
+
+            return -100
+
+        elif game.CheckDraw(turn):
+
+            return 0
+
+        if IsMaximizing:
+
+            BestScore = -1000
+
+            for i in range(3):
+                
+                for j in range(3):
+
+                    if game.VerifyEmptyCase:
+
+                        game.grid[i][j] == self.sign
+                        score = self.minimax(game.grid, 0, False, Player, turn)
+                        game.grid[i][j] == '-'
+                        if score > BestScore:
+                            BestScore = score
+            return BestScore
+        
+        else:
+
+            BestScore = -1000
+
+            for i in range(3):
+                
+                for j in range(3):
+
+                    if game.VerifyEmptyCase:
+
+                        game.grid[i][j] == self.sign
+                        score = self.minimax(game.grid, depth + 1, True, Player, turn)
+                        game.grid[i][j] == '-'
+                        if score < BestScore:
+                            BestScore = score
+                            BestMoveX = i
+                            BestMoveY = j
+  
+    def AIMove(self, game, Player, turn):
+
+            BestScore = -1000
+            BestMoveX = 0
+            BestMoveY = 0
+
+            for i in range(3):
+                
+                for j in range(3):
+
+                    if game.VerifyEmptyCase:
+
+                        game.grid[i][j] == self.sign
+                        score = self.minimax(game.grid, 0, False, Player, turn)
+                        game.grid[i][j] == '-'
+                        if score > BestScore:
+                            BestScore = score
+                            BestMoveX = i
+                            BestMoveY = j
+
+            game.UpdateGrid(BestMoveX + 1, BestMoveY + 1, self)
+            return 
 
 '''
     def AIPlayCorner(self, game):
@@ -310,7 +410,6 @@ def GameWithAI():
     Player2 = AI('O')
     GameTicTacToe = Morpion()
     GameTicTacToe.PrepareGrid()
-    Player2.CompAI()
     
     while turn < 9 and GameTicTacToe.VerifyWin() != True:
         
@@ -330,7 +429,7 @@ def GameWithAI():
 
         else:
             
-            Player2.AIMove(turn, GameTicTacToe)
+            Player2.AIMove(GameTicTacToe,Player1, turn)
             turn += 1
             
             if GameTicTacToe.VerifyWin():

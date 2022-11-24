@@ -163,7 +163,7 @@ class AI():
         self.name = 'AI'
         self.sign = sign
     
-    def minimax(self, game, Depth, IsMaximizing, Player, turn):
+    def minimax(self, game, IsMaximizing, Player, turn):
         
         if game.CheckSignWin(self):
 
@@ -188,7 +188,7 @@ class AI():
                     if game.VerifyEmptyCase:
 
                         game.grid[i][j] == self.sign
-                        score = self.minimax(game, 0, False, Player, turn)
+                        score = self.minimax(game, False, Player, turn)
                         game.grid[i][j] == '-'
                         if score > BestScore:
                             BestScore = score
@@ -206,7 +206,7 @@ class AI():
                     if game.VerifyEmptyCase:
 
                         game.grid[i][j] == Player.sign
-                        score = self.minimax(game, Depth + 1, True, Player, turn)
+                        score = self.minimax(game, True, Player, turn)
                         game.grid[i][j] == '-'
                         if score < BestScore:
                             BestScore = score
@@ -226,7 +226,7 @@ class AI():
                     if game.VerifyEmptyCase:
 
                         game.UpdateGrid(i, j, self)
-                        score = self.minimax(game, 0, False, Player, turn)
+                        score = self.minimax(game, False, Player, turn)
                         game.grid[i][j] == '-'
                         if score < BestScore:
                             BestScore = score
